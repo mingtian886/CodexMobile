@@ -530,6 +530,19 @@ html.is-pairing-screen .pairing-screen {
   }
 }
 
+html.is-file-preview-embedded body {
+  display: block;
+  place-items: initial;
+  background: var(--surface);
+}
+
+html.is-file-preview-embedded #root {
+  width: 100vw;
+  height: var(--app-height, 100dvh);
+  border: 0;
+  box-shadow: none;
+}
+
 @media (max-width: 480px) {
   .permission-pill {
     max-width: 104px;

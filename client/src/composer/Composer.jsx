@@ -1,7 +1,7 @@
 /**
- * 主聊天输入区：附件、模型/推理/权限/技能、首页项目选择、剪贴板粘贴与发送流程。
+ * 主聊天输入区：附件、目标模式、模型/推理/权限/技能、首页项目选择、剪贴板粘贴与发送流程。
  *
- * Keywords: composer, chat input, attachments, model, skills, git-branch
+ * Keywords: composer, chat input, attachments, goal-mode, model, skills, git-branch
  *
  * Exports:
  * - DEFAULT_PERMISSION_MODE — re-export 默认权限模式常量。
@@ -1006,6 +1006,17 @@ export function Composer({
             <Plus size={18} />
           </button>
           <div className="composer-tool-strip" role="toolbar" aria-label="发送选项">
+            <button
+              type="button"
+              className={`composer-tool-icon composer-goal-toggle ${selectedCollaborationMode === 'goal' ? 'is-goal-mode' : ''}`}
+              onClick={() => onSelectCollaborationMode?.(selectedCollaborationMode === 'goal' ? null : 'goal')}
+              disabled={composerReadOnly}
+              title={selectedCollaborationMode === 'goal' ? '目标模式已开启' : '开启目标模式'}
+              aria-label={selectedCollaborationMode === 'goal' ? '目标模式：已开启' : '目标模式：未开启'}
+              aria-pressed={selectedCollaborationMode === 'goal'}
+            >
+              {selectedCollaborationMode === 'goal' ? <Check size={16} strokeWidth={2.2} /> : <Target size={17} strokeWidth={1.9} />}
+            </button>
             <button
               type="button"
               className={`composer-tool-icon ${normalizedPermissionMode === 'bypassPermissions' ? 'is-permission-bypass' : ''}`}

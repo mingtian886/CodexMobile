@@ -117,7 +117,7 @@ test('prepareChatRequest normalizes default collaboration mode with runtime sett
   });
 });
 
-test('prepareChatRequest normalizes goal collaboration mode with runtime settings', () => {
+test('prepareChatRequest maps mobile goal mode to Codex custom collaboration mode', () => {
   const prepared = prepareChatRequest({
     message: '持续推进这个目标',
     collaborationMode: 'goal',
@@ -129,11 +129,15 @@ test('prepareChatRequest normalizes goal collaboration mode with runtime setting
   });
 
   assert.deepEqual(prepared.collaborationMode, {
-    mode: 'goal',
+    mode: 'custom',
     settings: {
       model: 'gpt-5.5',
       reasoning_effort: 'high',
-      developer_instructions: null
+      developer_instructions: [
+        'Continue working toward the active thread goal.',
+        'Treat the user message as the concrete objective to pursue until it is genuinely complete.',
+        'Keep making progress across turns, verify the result against the requested end state, and do not mark the goal complete until the objective is satisfied.'
+      ].join('\n')
     }
   });
 });

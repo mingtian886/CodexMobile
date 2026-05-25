@@ -30,6 +30,12 @@ import {
 } from './upload-service.js';
 import { normalizeServiceTier } from '../shared/service-tier.js';
 
+const GOAL_MODE_DEVELOPER_INSTRUCTIONS = [
+  'Continue working toward the active thread goal.',
+  'Treat the user message as the concrete objective to pursue until it is genuinely complete.',
+  'Keep making progress across turns, verify the result against the requested end state, and do not mark the goal complete until the objective is satisfied.'
+].join('\n');
+
 function dateStamp(date = new Date()) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -104,10 +110,11 @@ export function normalizeCollaborationMode(value, { model = '', reasoningEffort 
   const requestedMode = typeof value === 'string' ? value : value?.mode;
   const mode = String(requestedMode || '').trim().toLowerCase();
   const settings = typeof value === 'object' && value?.settings ? value.settings : {};
+  const requestedDeveloperInstructions = settings.developer_instructions ?? null;
   const normalizedSettings = {
     model: String(settings.model ?? model ?? '').trim(),
     reasoning_effort: settings.reasoning_effort ?? settings.reasoningEffort ?? reasoningEffort ?? null,
-    developer_instructions: settings.developer_instructions ?? null
+    developer_instructions: requestedDeveloperInstructions
   };
   if (['default', 'normal', 'none', 'off'].includes(mode)) {
     return {
@@ -115,7 +122,16 @@ export function normalizeCollaborationMode(value, { model = '', reasoningEffort 
       settings: normalizedSettings
     };
   }
-  if (!['plan', 'goal'].includes(mode)) {
+  if (mode === 'goal') {
+    return {
+      mode: 'custom',
+      settings: {
+        ...normalizedSettings,
+        developer_instructions: requestedDeveloperInstructions || GOAL_MODE_DEVELOPER_INSTRUCTIONS
+      }
+    };
+  }
+  if (!['plan', 'custom', 'code', 'execute', 'pair_programming'].includes(mode)) {
     return null;
   }
   return {

@@ -3,7 +3,7 @@
  *
  * Keywords: panels, barrel, exports, sidebar, topbar
  *
- * Exports: ConnectionRecoveryCard、DocsPanel、FeishuLogoIcon、Drawer、GitPanel、GitQuickDialog、TopBar、bridgeConnectionLabel、ToastStack、topBarBridgeConnectionLabel（见下方 export 列表）。
+ * Exports: ConnectionRecoveryCard、DocsPanel、FeishuLogoIcon、Drawer、FileManagerPanel、GitPanel、GitQuickDialog、TopBar、bridgeConnectionLabel、ToastStack、topBarBridgeConnectionLabel（见下方 export 列表）。
  *
  * Inward: 同目录各面板与工具模块。
  *
@@ -13,6 +13,7 @@
 export { ConnectionRecoveryCard } from './ConnectionRecoveryCard.jsx';
 export { DocsPanel, FeishuLogoIcon } from './DocsPanel.jsx';
 export { Drawer } from './Drawer.jsx';
+export { FileManagerPanel } from './FileManagerPanel.jsx';
 export { GitPanel } from './GitPanel.jsx';
 export { GitQuickDialog } from './GitQuickDialog.jsx';
 export { TopBar, bridgeConnectionLabel } from './TopBar.jsx';

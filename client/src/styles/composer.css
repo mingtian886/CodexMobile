@@ -740,6 +740,34 @@
   color: var(--danger);
 }
 
+.composer-goal-toggle {
+  color: #0f766e;
+}
+
+.composer-goal-toggle.is-goal-mode {
+  color: #fff;
+  background: #0f766e;
+  box-shadow: 0 7px 18px rgba(15, 118, 110, 0.24);
+}
+
+.composer-goal-toggle.is-goal-mode:active {
+  background: #115e59;
+}
+
+[data-theme="dark"] .composer-goal-toggle {
+  color: #5eead4;
+}
+
+[data-theme="dark"] .composer-goal-toggle.is-goal-mode {
+  color: #042f2e;
+  background: #5eead4;
+  box-shadow: 0 7px 18px rgba(45, 212, 191, 0.22);
+}
+
+[data-theme="dark"] .composer-goal-toggle.is-goal-mode:active {
+  background: #2dd4bf;
+}
+
 .composer-tool-skills[data-count]::after {
   content: attr(data-count);
   position: absolute;

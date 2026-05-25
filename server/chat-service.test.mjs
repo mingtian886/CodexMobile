@@ -669,14 +669,10 @@ test('sendChat sends goal requests through headless collaboration mode', async (
 
   assert.equal(result.delivery, 'started');
   assert.equal(result.desktopBridge.mode, 'headless-local');
-  assert.deepEqual(runPayload.collaborationMode, {
-    mode: 'goal',
-    settings: {
-      model: 'gpt-5.5',
-      reasoning_effort: 'high',
-      developer_instructions: null
-    }
-  });
+  assert.equal(runPayload.collaborationMode.mode, 'custom');
+  assert.equal(runPayload.collaborationMode.settings.model, 'gpt-5.5');
+  assert.equal(runPayload.collaborationMode.settings.reasoning_effort, 'high');
+  assert.match(runPayload.collaborationMode.settings.developer_instructions, /active thread goal/);
 });
 
 test('sendChat leaves desktop collaboration mode untouched for normal headless follow-up turns', async () => {
